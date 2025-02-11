@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stock Formatter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+        .container {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+        textarea {
+            width: 100%;
+            height: 150px;
+            font-size: 16px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007BFF;
+            color: white;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        #output {
+            margin-top: 20px;
+            padding: 10px;
+            font-size: 18px;
+            background: #e9ecef;
+            border-radius: 5px;
+            word-wrap: break-word;
+            min-height: 50px;
+            white-space: pre-wrap;
+            border: 1px solid #ccc;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Stock Symbol Formatter</h2>
+        <textarea id="stockInput" placeholder="Enter stock names, one per line..."></textarea>
+        <br>
+        <button onclick="formatStocks()">Format Stocks</button>
+        <button onclick="copyToClipboard()">Copy</button>
+        <div id="output"></div>
+    </div>
+
+    <script>
+        function formatStocks() {
+            let input = document.getElementById("stockInput").value;
+            let stocks = input.split(/\n|\r/).map(stock => stock.trim()).filter(stock => stock !== "");
+            let formattedStocks = stocks.map(stock => `NSE:${stock}`).join(", ");
+            document.getElementById("output").innerText = formattedStocks;
+        }
+
+        function copyToClipboard() {
+            let outputText = document.getElementById("output").innerText;
+            if (!outputText) {
+                alert("No data to copy!");
+                return;
+            }
+            let textArea = document.createElement("textarea");
+            textArea.value = outputText;
+            document.body.appendChild(textArea);
+            textArea.select();
+            document.execCommand("copy");
+            document.body.removeChild(textArea);
+            alert("Copied to clipboard!");
+        }
+    </script>
+</body>
+</html>
