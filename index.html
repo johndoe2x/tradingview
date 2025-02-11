@@ -61,6 +61,7 @@
         <br>
         <button onclick="formatStocks()">Format Stocks</button>
         <button onclick="copyToClipboard()">Copy</button>
+        <button onclick="resetFields()">Reset</button>
         <div id="output"></div>
     </div>
 
@@ -85,6 +86,11 @@
             document.execCommand("copy");
             document.body.removeChild(textArea);
             alert("Copied to clipboard!");
+        }
+
+        function resetFields() {
+            document.getElementById("stockInput").value = "";
+            document.getElementById("output").innerText = "";
         }
     </script>
 </body>
